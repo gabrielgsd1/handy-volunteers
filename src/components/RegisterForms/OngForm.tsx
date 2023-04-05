@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import ReactInputMask from "react-input-mask";
 import Button from "../Buttons";
@@ -15,6 +16,9 @@ function OngForm() {
       <Input name="E-mail" id="email" />
       <MaskedInput mask="99.999.9999/9999-99" name="CNPJ" id="cnpj" />
       <Input name="Ramo da ONG" id="role" />
+      <Link href={"/"} className="text-custom-white hover:underline">
+        Já possui login?
+      </Link>
       <Button className="w-1/2 mt-4 m-auto">Cadastrar</Button>
     </Form>
   );

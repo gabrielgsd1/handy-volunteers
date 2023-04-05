@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import ReactInputMask from "react-input-mask";
 import Button from "../Buttons";
@@ -21,7 +22,9 @@ function AssistantForm() {
       <MaskedInput mask="999.999.999-99" name="CPF" id="cpf" />
       <Input type="password" id="password" name="Senha" />
       <Input type="password" id="password-confirm" name="Confirmar Senha" />
-
+      <Link href={"/"} className="text-custom-white hover:underline">
+        Já possui login?
+      </Link>
       <Button className="w-1/2 mt-4 m-auto">Cadastrar</Button>
     </Form>
   );

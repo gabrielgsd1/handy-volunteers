@@ -35,7 +35,7 @@ export default function Home(): JSX.Element {
                 type="password"
               />
               <Link
-                href={"/register"}
+                href={"/registro"}
                 className="text-custom-white hover:underline"
               >
                 Ainda possui não login?

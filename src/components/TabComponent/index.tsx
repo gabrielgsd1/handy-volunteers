@@ -19,7 +19,7 @@ function TabComponent({ tabs }: TabComponentProps) {
             className={`flex-1 duration-150 py-4 first:rounded-l-lg last:rounded-r-lg ${
               currentTab === i
                 ? "bg-custom-green text-custom-black"
-                : "bg-custom-black text-custom-green hover:bg-custom-green/10"
+                : "bg-custom-green/10 text-custom-green hover:bg-custom-green/25"
             }`}
           >
             {tab.name}

@@ -38,7 +38,7 @@ export default function Home(): JSX.Element {
                 href={"/registro"}
                 className="text-custom-white hover:underline"
               >
-                Ainda possui não login?
+                Ainda não possui login?
               </Link>
               <div className="flex justify-center my-2">
                 <Button className="w-1/3">Entrar</Button>

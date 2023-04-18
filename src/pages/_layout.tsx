@@ -3,6 +3,7 @@ import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import Image from "next/image";
 import React from "react";
 import logotipo from "@/assets/logo.png";
+import Link from "next/link";
 
 interface LayoutProps {
   children: JSX.Element;
@@ -17,7 +18,9 @@ function Layout({ children }: LayoutProps) {
 
           <div className="flex gap-8 items-center justify-center">
             <div className="option">Início</div>
-            <div className="option">Sobre nós</div>
+
+            <Link href={"/sobrenos"} >Sobre nós</Link>
+              
             <div className="option">Contato</div>
           </div>
 

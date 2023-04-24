@@ -1,12 +1,23 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import ReactInputMask from "react-input-mask";
 import Button from "../Buttons";
 import Form from "../Form";
 import Input from "../Inputs/Input";
 import MaskedInput from "../Inputs/MaskedInput";
+import * as z from "zod";
 
 function AssistantForm() {
+  const schema = z.object({
+    name: z.string().min(2, "Preencha o nome corretamente"),
+    email: z.string().min(1, "Preencha um e-mail").email("E-mail inválido"),
+    cpf: z.string().min(1, "Preencha um CPF"),
+    password: z.string().min(8, "A senha deve ter no mínimo 8 caracteres"),
+    confirm_password: z.string(),
+  });
+
+  const [loading, setLoading] = useState(false);
+
   return (
     <Form className="flex-1 flex flex-col gap-2 w-full">
       <h2 className="font-bold text-center text-2xl text-white">
@@ -25,7 +36,9 @@ function AssistantForm() {
       <Link href={"/"} className="text-custom-white hover:underline">
         Já possui login?
       </Link>
-      <Button className="w-1/2 mt-4 m-auto">Cadastrar</Button>
+      <Button disabled={loading} className="w-1/2 mt-4 m-auto">
+        Cadastrar
+      </Button>
     </Form>
   );
 }

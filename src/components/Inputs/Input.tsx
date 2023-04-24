@@ -8,8 +8,12 @@ function Input({ bgColor, id, name, ...rest }: InputProps) {
       <label htmlFor={id} className="label-config">
         {name}
       </label>
+      {rest.errorMessage && (
+        <label className="text-red-500">{rest.errorMessage}</label>
+      )}
       <StyledInput
         type={rest.type}
+        {...rest}
         id={id}
         className="input-config"
         bgColor={bgColor}

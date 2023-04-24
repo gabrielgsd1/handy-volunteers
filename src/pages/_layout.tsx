@@ -17,16 +17,20 @@ function Layout({ children }: LayoutProps) {
           <Image alt="logo" src={logotipo} width={70} />
 
           <div className="flex gap-8 items-center justify-center">
-            <div className="option">Início</div>
+            <Link href="/" className="option">
+              Início
+            </Link>
 
-            <Link href={"/sobrenos"} >Sobre nós</Link>
-              
+            <Link href={"/sobrenos"}>Sobre nós</Link>
+
             <div className="option">Contato</div>
           </div>
 
           <div className="flex ml-auto gap-3 items-center">
-            <SecondaryButton>Login</SecondaryButton>
-            <Button className="btn-cadastro shadow-md duration-200 bg-custom-green text-black px-3 py-2 rounded-md  hover:bg-custom-dark-green hover:text-black flex">
+            <SecondaryButton className="shadow-md duration-200">
+              Login
+            </SecondaryButton>
+            <Button className="btn-cadastro shadow-md duration-200 bg-custom-green text-black px-3 py-2 rounded-md  hover:bg-custom-dark-green hover:text-black">
               Cadastro
             </Button>
           </div>

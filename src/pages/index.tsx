@@ -41,7 +41,9 @@ export default function Home(): JSX.Element {
                 Ainda não possui login?
               </Link>
               <div className="flex justify-center my-2">
-                <Button className="w-1/3">Entrar</Button>
+                <Button disabled className="w-1/3">
+                  Entrar
+                </Button>
               </div>
             </Form>
           </div>

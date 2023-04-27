@@ -12,7 +12,7 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen grid grid-rows-[auto,_1fr] box-border">
-      <header className="text-custom-white px-8 text-lg sticky top-0 left-0 w-full">
+      <header className="text-custom-white bg-custom-black px-8 text-lg sticky top-0 left-0 w-full">
         <nav className="navbar grid grid-cols-3  justify-between p-2 h-20">
           <Image alt="logo" src={logotipo} width={70} />
 

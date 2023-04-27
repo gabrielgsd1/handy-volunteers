@@ -41,6 +41,10 @@ body {
   @apply pt-1 pr-2 pb-1 bg-transparent border-b-white border-b-2 text-white outline-none;
 }
 
+.green-gradient {
+  @apply text-transparent from-custom-green to-custom-dark-green bg-gradient-to-r bg-clip-text
+}
+
 .label-config {
   @apply font-bold tracking-tight text-custom-green;
 }

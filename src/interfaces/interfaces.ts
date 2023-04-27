@@ -44,5 +44,28 @@ export interface Post {
   AssignedAt: Date;
   AssistantId: number;
   JobType?: JobType;
+  Ong?: Ong;
   Assistant?: Assistant;
+}
+
+export interface Ong {
+  OngId: number;
+  OngName: string;
+  Cnpj: string;
+  Cep: string;
+  Email: string;
+  OngTypeId: number;
+  UserId: string;
+}
+
+export interface User {
+  User_Id: string;
+  Name: string;
+  Email: string;
+  AvatarLink: string;
+  Hash: string;
+  Salt: string;
+  RoleId: number;
+  CreatedAt: Date;
+  LastUpdatedAt: Date;
 }

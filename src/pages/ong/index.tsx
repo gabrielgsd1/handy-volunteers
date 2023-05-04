@@ -3,53 +3,50 @@ import LoggedLayout from "../_loggedInLayout";
 import { GetServerSideProps } from "next";
 import { api } from "@/services/apiService";
 import { Post } from "@/interfaces/interfaces";
+import moment from "moment";
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
+import Button from "@/components/Buttons";
+import Link from "next/link";
 
 interface OngHomePageProps {
   posts: Post[];
 }
 
 function OngHomePage(props: OngHomePageProps) {
-  const usuarios = [
-    { name: "gabriel", age: 14 },
-    { name: "marcos", age: 12 },
-    { name: "teste", age: 2 },
-  ];
-
-  const usuariosComIdadeDobrada = usuarios.map((usuario) => {
-    return {
-      name: usuario.name,
-      age: usuario.age * 2,
-    };
-  });
-
-  const elementoParagrafoComUsuario = usuarios.map((usuario) => {
-    return (
-      <p>
-        {usuario.name} tem {usuario.age} anos
-      </p>
-    );
-  });
 
   return (
+    
     <LoggedLayout>
-      <section className="px-8">
-        ***só renderizar os posts***
-        <p>
-          os posts devem conter o titulo, conteúdo e embaixo do lado direito um
-          botão (componente Button) chamado Ver Mais
-        </p>
-        <p className="py-4">
-          o array de posts está dentro do parametro props (la em cima, é um
-          parametro do componente OngHomePage)
-        </p>
-        <p className="my-8">exemplo de map</p>
-        {usuarios.map((usuario) => {
-          return (
-            <p>
-              {usuario.name} tem {usuario.age} anos
-            </p>
-          );
+      <section className="px-16 bg-custom-black">
+        {props.posts.map(post => {
+
+        return <div>
+          
+          <p> Olá {post.Ong?.OngName}. Aqui estão suas vagas.</p>
+          <p> Você possui
+          {post.AssistantId && post.FinishedAt ? <p className="text-custom-dark-green"> Trabalhos Finalizados</p> : null}
+          {post.AssistantId != null && post.FinishedAt == null ? "Trabalhos em Andamento" : null}
+          {post.FinishedAt && post.Assistant == null ? <p className="text-custom-green"> Vagas em Aberto</p> : null}
+          </p>
+        </div>
+
         })}
+        
+
+          {/* Div de Posts */}
+        <div className="grid place-items-center gap-8 grid-cols-2">
+        {props.posts.map(post => {
+
+        return <div className="a bg-custom-black w-full h-full rounded-xl px-8 py-4">
+        <p className="text-2xl font-semibold">{post.Title}</p>
+        <p>{post.Ong?.OngName}</p>
+        <p>{post.Content.substring(0,100)}</p>
+        <p>Postada no dia {moment(post.CreatedAt).format("DD/MM/YYYY HH:mm")}</p>
+        <p>{post.AssistantId ? "Vaga preenchida" : "Vaga Aberta"}</p>
+        <div className="flex justify-end"><Button><Link href={"/posts/" + post.PostId}> Ver Vaga </Link></Button></div>
+        </div>
+        })}
+        </div>
       </section>
     </LoggedLayout>
   );

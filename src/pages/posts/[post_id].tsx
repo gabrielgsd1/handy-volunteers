@@ -1,11 +1,14 @@
 import { api } from "@/services/apiService";
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useContext, useState } from "react";
 import LoggedLayout from "../_loggedInLayout";
 import { Post } from "@/interfaces/interfaces";
 import moment from "moment";
 import Button from "@/components/Buttons";
 import Link from "next/link";
+import { UserContext } from "@/contexts/UserContext";
+import { messageError, messageSuccess } from "@/components/Message";
+import { useRouter } from "next/router";
 
 interface PostProps {
   post: Post;
@@ -13,6 +16,31 @@ interface PostProps {
 
 function Post({ post }: PostProps) {
   const hasAssistant = Boolean(post.AssistantId);
+  const [loading, setLoading] = useState(false);
+  const userCtx = useContext(UserContext);
+  const router = useRouter();
+
+  async function assignJob() {
+    try {
+      setLoading(true);
+      if (!userCtx?.user?.Assistant) {
+        messageError("Você não possui um assistente em sua conta!");
+        return;
+      }
+      const { data } = await api.post("/posts/assign-to-assistant", {
+        postId: post.PostId,
+        assistantId: userCtx.user.Assistant.AssistantId,
+      });
+      if (data) messageSuccess("Aplicado com sucesso");
+      router.reload();
+    } catch (e: any) {
+      messageError(
+        e?.response?.data?.message || "Erro ao se cadastrar para trabalho"
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <LoggedLayout>
@@ -60,22 +88,14 @@ function Post({ post }: PostProps) {
             Postado em {moment(post.CreatedAt).format("DD/MM/YYYY - HH:mm")}
           </p>
           <p className="text-md lg:text-lg my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus veniam itaque cum aliquam aliquid officia commodi nihil
-            explicabo libero. Harum nam aspernatur velit sequi distinctio,
-            aliquid dolores incidunt iusto ad sunt quos, deserunt corrupti id.
-            Aliquam fugiat laboriosam quasi, repellat ut voluptas molestias
-            culpa. Nisi voluptate exercitationem distinctio ullam unde quis
-            aperiam magnam placeat officia, dolorum dolore repudiandae accusamus
-            nobis nemo? Rerum officia ullam distinctio aut quisquam, quia omnis
-            nulla laudantium eius aliquam! Temporibus dolor, ipsum placeat
-            dolore, repellendus doloribus sint architecto culpa eos repellat
-            quaerat quos ullam libero mollitia deleniti facilis. Odio mollitia
-            saepe minima eligendi a possimus eius?
-            {post.Content}
+            <pre className="font-[inherit]">{post.Content}</pre>
           </p>
         </div>
-        {!hasAssistant && <Button>Aplicar para trabalho</Button>}
+        {!hasAssistant && (
+          <Button onClick={assignJob} loading={loading}>
+            Aplicar para trabalho
+          </Button>
+        )}
       </main>
     </LoggedLayout>
   );

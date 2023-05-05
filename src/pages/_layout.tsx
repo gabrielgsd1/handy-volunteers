@@ -27,12 +27,16 @@ function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="flex ml-auto gap-3 items-center">
-            <SecondaryButton className="shadow-md duration-200">
-              Login
-            </SecondaryButton>
-            <Button className="btn-cadastro shadow-md duration-200 bg-custom-green text-black px-3 py-2 rounded-md  hover:bg-custom-dark-green hover:text-black">
-              Cadastro
-            </Button>
+            <Link href="/">
+              <SecondaryButton className="shadow-md duration-200">
+                Login
+              </SecondaryButton>
+            </Link>
+            <Link href="/registro">
+              <Button className="btn-cadastro shadow-md duration-200 bg-custom-green text-black px-3 py-2 rounded-md  hover:bg-custom-dark-green hover:text-black">
+                Cadastro
+              </Button>
+            </Link>
           </div>
         </nav>
       </header>

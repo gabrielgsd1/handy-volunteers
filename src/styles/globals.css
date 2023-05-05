@@ -26,6 +26,7 @@ body {
   box-sizing: border-box;
   width: 100vw;
   background: linear-gradient(to bottom, rgb(15, 15, 15), rgb(25, 25, 30));
+  background-attachment: fixed;
 }
 
 .home {
@@ -41,12 +42,16 @@ body {
   @apply pt-1 pr-2 pb-1 bg-transparent border-b-white border-b-2 text-white outline-none;
 }
 
+.textarea-config {
+  @apply pt-1 pr-2 pb-1 bg-transparent border-white border text-white outline-none;
+}
+
 .green-gradient {
   @apply text-transparent from-custom-green to-custom-dark-green bg-gradient-to-r bg-clip-text
 }
 
 .label-config {
-  @apply font-bold tracking-tight text-custom-green;
+  @apply font-semibold tracking-tight text-custom-green;
 }
 
 @layer components {

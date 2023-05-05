@@ -23,6 +23,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-input-mask": "^2.0.4",
+    "react-notifications": "^1.7.4",
     "styled-components": "^5.3.9",
     "typescript": "5.0.2",
     "zod": "^3.21.4"

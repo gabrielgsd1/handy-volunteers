@@ -1,7 +1,19 @@
-import { HTMLAttributes, InputHTMLAttributes } from "react";
+import {
+  HTMLAttributes,
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+} from "react";
 
 export interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
+    StyledInputProps {
+  id: string;
+  name: string;
+  errorMessage?: string;
+}
+
+export interface TextAreaProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
     StyledInputProps {
   id: string;
   name: string;
@@ -56,6 +68,7 @@ export interface Ong {
   Email: string;
   OngTypeId: number;
   UserId: string;
+  OngType: OngType;
 }
 
 export interface User {
@@ -68,4 +81,6 @@ export interface User {
   RoleId: number;
   CreatedAt: Date;
   LastUpdatedAt: Date;
+  Assistant?: Assistant;
+  Ong?: Ong;
 }

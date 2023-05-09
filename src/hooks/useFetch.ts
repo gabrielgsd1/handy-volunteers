@@ -35,7 +35,6 @@ export function useFetch<T, U = unknown>(
     if (route.endsWith("null") || route.endsWith("undefined")) return;
     try {
       setReqState("loading");
-      console.log(options.query);
       const res: AxiosResponse<T> = await api({
         url: options?.route || route,
         method: method,

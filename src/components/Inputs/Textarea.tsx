@@ -1,8 +1,12 @@
-import { InputProps, StyledInputProps } from "@/interfaces/interfaces";
+import {
+  InputProps,
+  StyledInputProps,
+  TextAreaProps,
+} from "@/interfaces/interfaces";
 import React, { HTMLAttributes } from "react";
 import styled from "styled-components";
 
-function Input({ bgColor, id, name, ...rest }: InputProps) {
+function Textarea({ bgColor, id, name, ...rest }: TextAreaProps) {
   return (
     <div className="flex flex-col">
       <label htmlFor={id} className="label-config">
@@ -11,19 +15,16 @@ function Input({ bgColor, id, name, ...rest }: InputProps) {
       {rest.errorMessage && (
         <label className="text-red-500">{rest.errorMessage}</label>
       )}
-      <StyledInput
-        type={rest.type}
+      <TextArea
         {...rest}
-        id={id}
-        className="input-config"
         bgColor={bgColor}
+        id={id}
+        className="textarea-config p-2 mt-1 min-h-[200px] rounded-md"
       />
     </div>
   );
 }
 
-const StyledInput = styled.input<StyledInputProps>`
-  font-size: 1.125rem;
-`;
+const TextArea = styled.textarea<StyledInputProps>``;
 
-export default Input;
+export default Textarea;

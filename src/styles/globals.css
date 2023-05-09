@@ -5,13 +5,16 @@
 
 /* NAO MEXER NESSA LINHA DE BAIXO */
 *, *::before, *::after {
-  margin: 0;
-  padding: 0;
   font-family: Poppins, sans-serif;
   -webkit-box-sizing: border-box !important;
 	-moz-box-sizing: border-box !important;
 	-ms-box-sizing: border-box !important;
 	box-sizing: border-box !important;
+}
+
+body, html {
+  margin: 0;
+  box-sizing: border-box;
 }
 
 p {
@@ -23,13 +26,36 @@ body {
   box-sizing: border-box;
   width: 100vw;
   background: linear-gradient(to bottom, rgb(15, 15, 15), rgb(25, 25, 30));
+  background-attachment: fixed;
+}
+
+.home {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+    'header header'
+    'sidebar main' 
 }
 
 .input-config {
   @apply pt-1 pr-2 pb-1 bg-transparent border-b-white border-b-2 text-white outline-none;
 }
 
-.label-config {
-  @apply font-bold tracking-tight text-custom-green;
+.textarea-config {
+  @apply pt-1 pr-2 pb-1 bg-transparent border-white border text-white outline-none;
 }
 
+.green-gradient {
+  @apply text-transparent from-custom-green to-custom-dark-green bg-gradient-to-r bg-clip-text
+}
+
+.label-config {
+  @apply font-semibold tracking-tight text-custom-green;
+}
+
+@layer components {
+  body {
+    color: theme(colors.custom-white);
+  }
+}

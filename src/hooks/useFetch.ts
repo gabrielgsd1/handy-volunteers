@@ -8,7 +8,7 @@ interface UseFetchReturn<T = never> {
   state: LoadingStates;
   error: string | null;
   hasCompleted?: boolean;
-  trigger: () => void;
+  trigger: (options: { route?: string; body?: any; query?: any }) => void;
   isLoading: boolean;
 }
 
@@ -27,22 +27,23 @@ export function useFetch<T, U = unknown>(
   const [data, setData] = useState<null | T>(null);
   const [error, setError] = useState<null | string>(null);
 
-  async function trigger(
-    httpmethod: HttpMethods = method,
-    apiroute: string = route,
-    bodyObj: U | null | undefined = body
-  ) {
-    console.log("called");
-    console.log(route.endsWith("null") || route.endsWith("undefined"));
+  async function trigger(options?: {
+    route?: string;
+    body?: any;
+    query?: any;
+  }) {
     if (route.endsWith("null") || route.endsWith("undefined")) return;
     try {
       setReqState("loading");
+      console.log(options.query);
       const res: AxiosResponse<T> = await api({
-        url: apiroute || route,
-        method: httpmethod || method,
-        data: bodyObj || body,
+        url: options?.route || route,
+        method: method,
+        data: options?.body || body,
       });
+      console.log(res.request);
       setData(res.data);
+      console.log(res.data);
     } catch (e: any) {
       setReqState("error");
       if (e.response) setError(e.response.data.message);

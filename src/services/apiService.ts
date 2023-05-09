@@ -2,7 +2,7 @@ import axios from "axios";
 import * as nookies from "nookies";
 
 export const api = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.NEXT_API_URL,
 });
 
 api.interceptors.request.use((v) => {

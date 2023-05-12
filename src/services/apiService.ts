@@ -2,7 +2,7 @@ import axios from "axios";
 import * as nookies from "nookies";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3001/",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 api.interceptors.request.use((v) => {

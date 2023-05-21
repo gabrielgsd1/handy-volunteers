@@ -42,6 +42,8 @@ function Post({ post }: PostProps) {
     }
   }
 
+  console.log(post.Content);
+
   return (
     <LoggedLayout>
       <main className="px-8">
@@ -65,7 +67,9 @@ function Post({ post }: PostProps) {
             {post.Ong?.OngName}
           </Link>
         </p>
-        <p className="py-2 text-lg">Tipo de trabalho: {post.JobType?.Name}</p>
+        <p className="py-2 text-lg">
+          Tipo de trabalho: {post.Ong?.OngType.Name}
+        </p>
         <p className="py-2 text-lg">
           Possui assistente: {post.AssistantId ? "Sim" : "Não"}
         </p>
@@ -87,9 +91,9 @@ function Post({ post }: PostProps) {
           <p>
             Postado em {moment(post.CreatedAt).format("DD/MM/YYYY - HH:mm")}
           </p>
-          <p className="text-md lg:text-lg my-4">
-            <pre className="font-[inherit]">{post.Content}</pre>
-          </p>
+          <pre className="whitespace-pre-wrap text-md lg:text-lg my-4 font-[inherit] text-clip text-">
+            {post.Content}
+          </pre>
         </div>
         {!hasAssistant && (
           <Button onClick={assignJob} loading={loading}>

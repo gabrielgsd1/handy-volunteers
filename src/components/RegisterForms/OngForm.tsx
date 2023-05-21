@@ -12,6 +12,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/services/apiService";
 import { useRouter } from "next/router";
+import { getNumbers } from "@/utils/utils";
 
 interface OngFormProps {
   ongTypes: OngType[];
@@ -72,7 +73,7 @@ function OngForm({ ongTypes }: OngFormProps) {
 
       await api.post("/ong", {
         name: data.name,
-        cnpj: data.cnpj,
+        cnpj: getNumbers(data.cnpj),
         email: data.email,
         password: data.password,
         cep: "01315001",
@@ -106,6 +107,7 @@ function OngForm({ ongTypes }: OngFormProps) {
       />
       <Input
         value={watch("email")}
+        autoComplete={"false"}
         errorMessage={errors.email?.message}
         {...register("email")}
         name="E-mail"
@@ -133,7 +135,11 @@ function OngForm({ ongTypes }: OngFormProps) {
         >
           <option selected></option>
           {ongTypes.map(function (ongType) {
-            return <option value={ongType.OngTypeId}>{ongType.Name}</option>;
+            return (
+              <option className="text-black" value={ongType.OngTypeId}>
+                {ongType.Name}
+              </option>
+            );
           })}
         </Select>
       </div>
@@ -143,6 +149,7 @@ function OngForm({ ongTypes }: OngFormProps) {
         {...register("password")}
         type="password"
         id="password"
+        autoComplete="false"
         name="Senha"
         onChange={(e) => setValue("password", e.target.value)}
       />

@@ -11,34 +11,22 @@ import Loading from "@/components/Loading";
 import moment from "moment";
 import Link from "next/link";
 import Button from "@/components/Buttons";
+import { formatCnpj, getNumbers } from "@/utils/utils";
 
-interface AssistantProps {
-  ongTypes: OngType[];
-}
-
-function Assistant(props: AssistantProps) {
-  props.ongTypes;
+function Assistant() {
   const userCtx = useContext(UserContext);
   const router = useRouter();
   const [filter, setFilter] = useState<null | string>(null);
-  const posts = useFetch<Post[]>("GET", "/posts");
-  const currentJobs = useFetch<Post[]>(
-    "GET",
-    `/posts/assistant/current/${userCtx?.user?.Assistant?.AssistantId}`
-  );
+  const posts = useFetch<Post[]>("GET", "/posts/available-jobs");
+  const ongTypes = useFetch<OngType[]>("GET", "/ongtype");
 
   function handleChangeFilter(value: string) {
     const filterValue = Boolean(value) ? value : null;
     setFilter(() => filterValue);
-    posts.trigger({ route: `/posts/ong-type/${value}` });
-  }
-
-  function handleSorting(value: string) {
     posts.trigger({
-      query: {
-        sorting: value.startsWith("date") ? "CreatedAt" : "Title",
-        ascOrDesc: value.endsWith("asc") ? "ASC" : "DESC",
-      },
+      route: filterValue
+        ? `/posts/ong-type/available/${value}`
+        : "/posts/available-jobs",
     });
   }
 
@@ -56,34 +44,31 @@ function Assistant(props: AssistantProps) {
   //   );
 
   return (
-    <LoggedLayout>
-      <div>
-        <div className="head">
-          <p className="lg:text-4xl text-3xl font-semibold">
-            Olá, {userCtx.user?.Name}
-          </p>
-          <p className="text-green-500">
-            Você possui {currentJobs.data?.length} trabalhos em andamento
-          </p>
-        </div>
-        <div className="body">
-          <div className="filters py-8 flex gap-8">
-            <Select
-              name="Filtrar por tipo de trabalho"
-              id="job-type"
-              onChange={(e) => handleChangeFilter(e.currentTarget.value)}
-            >
-              <option selected={filter === null} value=""></option>
-              {props.ongTypes.map((type) => (
-                <option
-                  selected={(filter || 0) === type.OngTypeId}
-                  value={type.OngTypeId.toString()}
-                >
-                  {type.Name}
-                </option>
-              ))}
-            </Select>
-            <Select
+    <div className="mx-10">
+      <div className="head">
+        <p className="lg:text-4xl text-3xl font-semibold">
+          Olá, {userCtx.user?.Name.split(" ")[0]}
+        </p>
+      </div>
+      <div className="body">
+        <div className="filters py-8 flex gap-8">
+          <Select
+            name="Filtrar por tipo de trabalho"
+            id="job-type"
+            onChange={(e) => handleChangeFilter(e.currentTarget.value)}
+          >
+            <option selected={filter === null} value=""></option>
+            {ongTypes.data?.map((type) => (
+              <option
+                key={type.Name}
+                selected={(filter || 0) === type.OngTypeId}
+                value={type.OngTypeId.toString()}
+              >
+                {type.Name}
+              </option>
+            ))}
+          </Select>
+          {/* <Select
               onChange={(e) => handleSorting(e.currentTarget.value)}
               name="Ordernar por:"
               id="job-type"
@@ -94,20 +79,17 @@ function Assistant(props: AssistantProps) {
               <option value="date-desc">Data (mais antigas primeiro)</option>
               <option value="title-asc">Nome (A-Z)</option>
               <option value="title-desc">Nome (Z-A)</option>
-            </Select>
-          </div>
-          <div className="current-jobs">
-            <p className="text-2xl font-semibold tracking-wide">
-              Seus trabalhos atuais
-            </p>
-            {currentJobs.data?.map((post) => (
-              <BigPost post={post} />
-            ))}
-          </div>
+            </Select> */}
+        </div>
+        <div className="current-jobs-container py-4"></div>
+        <div className="available-jobs py-4">
+          <p className="text-3xl font-semibold tracking-wide pb-6">
+            Trabalhos disponíveis
+          </p>
           <Posts posts={posts.data} loading={posts.isLoading} />
         </div>
       </div>
-    </LoggedLayout>
+    </div>
   );
 }
 
@@ -123,10 +105,13 @@ export function Posts({
   if (loading) return <Loading />;
   if (!posts?.length) return <p>Não há trabalhos.</p>;
   return (
-    <div className="grid place-items-center gap-8 grid-cols-2">
+    <div className="grid place-items-center gap-8 grid-cols-2 my-4">
       {posts?.map((post) => {
         return (
-          <div className="bg-custom-black w-full h-full rounded-xl px-8 py-4 duration-200 outline outline-transparent hover:outline-custom-dark-green/75 hover:scale-[1.025] hover:bg-[rgb(23,23,23)]">
+          <div
+            key={post.PostId}
+            className="bg-custom-black w-full h-full rounded-xl px-8 py-4 duration-200 outline outline-transparent hover:outline-custom-dark-green/75 hover:scale-[1.025] hover:bg-[rgb(23,23,23)]"
+          >
             <p className="text-2xl font-semibold">{post.Title}</p>
             <p>{post.Ong?.OngName}</p>
             <p className="py-3">
@@ -140,7 +125,7 @@ export function Posts({
             <div className="flex justify-end">
               <Button>
                 <Link target="_blank" href={"/posts/" + post.PostId}>
-                  Ver Vaga{" "}
+                  Ver Vaga
                 </Link>
               </Button>
             </div>
@@ -153,24 +138,18 @@ export function Posts({
 
 export function BigPost({ post }: { post: Post }) {
   return (
-    <div className="p-4">
-      <p>{post.Title}</p>
+    <div className="p-4 bg-custom-black rounded-xl">
+      <div className="head pb-3">
+        <p>
+          <span className="font-semibold text-xl">{post.Title}</span> - Postado
+          em {moment(post.CreatedAt).format("DD/MM/YYYY")}
+        </p>
+        <p>
+          {post.Ong?.OngName} - {formatCnpj(getNumbers(post.Ong?.Cnpj || ""))}
+        </p>
+      </div>
       <p>{post.Content.substring(0, 200)}</p>
-      <p>
-        {post.Ong?.OngName} - {post.Ong?.Cnpj}
-      </p>
       <p></p>
-      <p>Postado em {moment(post.CreatedAt).format("DD/MM/YYYY")}</p>
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await api.get<OngType[]>("/ongtype");
-
-  return {
-    props: {
-      ongTypes: res.data,
-    },
-  };
-};

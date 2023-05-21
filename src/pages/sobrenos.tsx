@@ -5,7 +5,7 @@ import GreenHighlight from "@/components/GreenHighlight";
 function SobreNos() {
   return (
     <Layout>
-      <main className="px-8 md:px-12 lg:px-20 py-8 text-lg">
+      <main className="px-8 md:px-12 lg:px-20 py-8 text-lg responsive-font">
         <div className="flex justify-center">
           <div className="flex flex-col gap-8">
             <p className="font-bold text-xl md:text-4xl from-custom-green to-custom-dark-green bg-gradient-to-r bg-clip-text text-transparent">

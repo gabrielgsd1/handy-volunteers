@@ -23,9 +23,9 @@ function Registro({ ongTypes }: RegistroProps) {
   ];
   return (
     <Layout>
-      <main className="flex gap-10 flex-col md:flex-row items-center mx-10 my-5">
+      <main className="flex gap-10 flex-col lg:flex-row items-center mx-10 my-8">
         <div className="flex-1 text-center">
-          <p className="text-xl md:text-2xl top-1/2 text-custo">
+          <p className="text-xl md:text-2xl top-1/2">
             Vamos precisar de alguns dados, como saber se você é uma{" "}
             <GreenHighlight>ONG</GreenHighlight> ou um{" "}
             <GreenHighlight>assistente</GreenHighlight> e outras informações

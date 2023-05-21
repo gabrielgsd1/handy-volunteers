@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import LoggedLayout from "../_loggedInLayout";
 import { GetServerSideProps } from "next";
 import { api } from "@/services/apiService";
@@ -9,54 +9,58 @@ import Button from "@/components/Buttons";
 import Link from "next/link";
 import GreenHighlight from "@/components/GreenHighlight";
 import Jobs from "@/components/Jobs/jobs";
+import { UserContext } from "@/contexts/UserContext";
+import { useFetch } from "@/hooks/useFetch";
 
+function OngHomePage() {
+  const userCtx = useContext(UserContext);
 
-interface OngHomePageProps {
-  ong: Ong;
-  posts: Post[];
-}
+  const ongId = userCtx?.user?.Ong?.OngId;
 
-function OngHomePage(props: OngHomePageProps) {
-  
-  const notFinishedJobs = props.posts.filter(
+  const ong = useFetch<Ong>("GET", `/ong/${ongId}`);
+  const posts = useFetch<Post[]>("GET", `/posts/ong/${ongId}`);
+
+  const notFinishedJobs = posts.data?.filter(
     (post) => post.AssistantId && !post.FinishedAt
   );
-  const finishedJobs = props.posts.filter(
+  const finishedJobs = posts.data?.filter(
     (post) => post.AssistantId && post.FinishedAt
   );
-  const openJobs = props.posts.filter(
+  const openJobs = posts.data?.filter(
     (post) => !post.AssistantId && !post.FinishedAt
   );
-  
+
   return (
-    
-    <LoggedLayout>
-      <section className="px-16">
+    <section className="pl-6 pr-16 mb-12">
+      <div className="text-xl my-8">
+        <p className="font-semibold">
+          Olá{" "}
+          <GreenHighlight className="capitalize">
+            {ong.data?.OngName}
+          </GreenHighlight>{" "}
+          seja bem-vindo. Aqui estão os trabalhos postados por você.
+        </p>
+      </div>
 
-        <div className="text-xl my-8">
-          <p className="font-semibold">
-            Olá <GreenHighlight>{props.ong.OngName}</GreenHighlight> seja bem-vindo. 
-            Aqui estão os trabalhos postados por você.
-          </p>
-        </div>
-
-        <div className="flex flex-col w-96 text-xl p-8 bg-black border rounded-xl outline outline-white">
-
-          <p className="font-xl font-semibold tracking-tight">
-            Vagas em aberto: {openJobs.length}
-          </p>
-          <p className="font-xl font-semibold tracking-tight">
-            Trabalhos em andamento: {notFinishedJobs.length}
-          </p>
-          <p className="font-xl font-semibold tracking-tight">
-            Trabalhos finalizados: {finishedJobs.length}
-          </p>
-          
-        </div>
-        <Jobs posts={props.posts}       />
-
-      </section>
-    </LoggedLayout>
+      <div className="flex flex-col w-96 text-xl p-8 bg-custom-black border rounded-xl outline-1 outline-white">
+        <p className="font-xl tracking-tight">
+          Vagas em{" "}
+          <GreenHighlight className="font-normal">aberto</GreenHighlight>:{" "}
+          {openJobs?.length}
+        </p>
+        <p className="font-xl tracking-tight">
+          Trabalhos em{" "}
+          <GreenHighlight className="font-normal">andamento</GreenHighlight>:{" "}
+          {notFinishedJobs?.length}
+        </p>
+        <p className="font-xl tracking-tight">
+          Trabalhos{" "}
+          <GreenHighlight className="font-normal">finalizados</GreenHighlight>:{" "}
+          {finishedJobs?.length}
+        </p>
+      </div>
+      {posts.data && <Jobs posts={posts.data} />}
+    </section>
   );
 }
 

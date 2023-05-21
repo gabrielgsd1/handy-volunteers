@@ -64,14 +64,16 @@ export default function Home(): JSX.Element {
 
   return (
     <Layout>
-      <main className="flex items-center h-full">
-        <div className="description flex-1 text-[#eee] text-center text-3xl">
-          <span className="font-bold">Ajude</span> quem mais precisa, fazendo o
-          bem para o mundo.
+      <main className="responsive-font flex flex-col lg:flex-row items-center mx-4 lg:mx-12 h-full">
+        <div className="description flex flex-wrap items-center lg:flex-1 mt-12 lg:mt-0 text-[#eee] text-center text-3xl">
+          <p className="responsive-font">
+            <span className="font-bold">Ajude</span> quem mais precisa, fazendo
+            o bem para o mundo.
+          </p>
         </div>
-        <div className="login flex-1">
+        <div className="login flex-1 m-6">
           <Form
-            className="m-8 flex gap-4 flex-col"
+            className="m-auto max-w-[500px] min-w-[200px] flex gap-4 flex-col"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <Input

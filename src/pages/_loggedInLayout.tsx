@@ -10,11 +10,8 @@ function LoggedLayout({ children }: LoggedLayoutProps) {
   return (
     <AuthLayer>
       <div className="home h-screen box-border">
-        <header className="[grid_area:_header] py-4 px-2">
-          CABEÇALHO TEMPORÁRIO
-        </header>
         <Sidebar />
-        <main className="[grid-area:_main]">{children}</main>
+        <main className="[grid-area:_main] ml-[250px] pt-8">{children}</main>
       </div>
     </AuthLayer>
   );

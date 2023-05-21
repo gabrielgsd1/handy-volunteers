@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/services/apiService";
 import { useRouter } from "next/router";
 import { messageError } from "../Message";
+import { getNumbers } from "@/utils/utils";
 
 function AssistantForm() {
   type Schema = z.infer<typeof schema>;
@@ -59,7 +60,7 @@ function AssistantForm() {
 
       await api.post("/assistants", {
         name: data.name,
-        cnpj_cpf: data.cpf,
+        cnpj_cpf: getNumbers(data.cpf),
         email: data.email,
         password: data.password,
         phone: data.phone,
@@ -93,6 +94,7 @@ function AssistantForm() {
       />
       <Input
         {...register("email")}
+        autoComplete="false"
         value={watch("email")}
         errorMessage={errors.email?.message}
         id="email"
@@ -119,6 +121,7 @@ function AssistantForm() {
       />
       <Input
         {...register("password")}
+        autoComplete="false"
         value={watch("password")}
         errorMessage={errors.password?.message}
         type="password"

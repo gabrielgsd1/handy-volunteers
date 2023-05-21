@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LoggedLayout from "../_loggedInLayout";
 import Input from "@/components/Inputs/Input";
 import Textarea from "@/components/Inputs/Textarea";
@@ -12,8 +12,25 @@ import { UserContext } from "@/contexts/UserContext";
 import AuthLayer from "@/components/AuthLayer";
 import { messageError, messageSuccess } from "@/components/Message";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { Post } from "@/interfaces/interfaces";
 
 function CreatePost() {
+  async function getPost() {
+    try {
+      const resultado = await axios.get<Post>(
+        "https://api-handy-volunteers.onrender.com/posts/857a03-84f1-4e3b-ba78-f00e1e33653a"
+      );
+      console.log(resultado.data);
+    } catch (e) {
+      console.log("deu bosta");
+    }
+  }
+
+  useEffect(() => {
+    getPost();
+  }, []);
+
   const userCtx = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
@@ -26,11 +43,15 @@ function CreatePost() {
     content: z
       .string({ required_error: "Este campo é obrigatório" })
       .min(2, "Este campo é obrigatório"),
+    startDate: z.string({ required_error: "Este campo é obrigatório" }),
+    finishDate: z.string({ required_error: "Este campo é obrigatório" }),
   });
 
   const defaultValues = {
     title: "",
     content: "",
+    startDate: "",
+    finishDate: "",
   };
 
   const form = useForm({
@@ -39,12 +60,20 @@ function CreatePost() {
   });
 
   async function onSubmit(data: typeof defaultValues) {
+    if (isNaN(new Date(data.startDate).valueOf()))
+      return form.setError("startDate", { message: "Data inválida" });
+    if (isNaN(new Date(data.finishDate).valueOf()))
+      return form.setError("finishDate", { message: "Data inválida" });
     try {
       setLoading(true);
+      console.log(data);
+
       await api.post("/posts", {
         title: data.title,
         content: data.content,
         ongId: userCtx?.user?.Ong?.OngId,
+        startDate: data.startDate,
+        finishDate: data.finishDate,
         jobTypeId: 1,
       });
       messageSuccess("Post criado com sucesso");
@@ -71,6 +100,26 @@ function CreatePost() {
               Você criará um trabalho do tipo:{" "}
               {userCtx?.user?.Ong?.OngType.Name}.
             </p>
+            <Input
+              min={new Date().toISOString()}
+              type="datetime-local"
+              value={form.watch("startDate")}
+              {...form.register("startDate")}
+              onChange={(e) => form.setValue("startDate", e.target.value)}
+              name="Data de início"
+              id="startdate"
+              errorMessage={form.formState?.errors?.startDate?.message}
+            />
+            <Input
+              value={form.watch("finishDate")}
+              {...form.register("finishDate")}
+              onChange={(e) => form.setValue("finishDate", e.target.value)}
+              min={new Date().toISOString()}
+              type="datetime-local"
+              name="Data final"
+              id="enddate"
+              errorMessage={form.formState?.errors?.finishDate?.message}
+            />
             <Input
               value={form.watch("title")}
               {...form.register("title")}

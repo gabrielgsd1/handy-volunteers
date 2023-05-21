@@ -30,11 +30,6 @@ export interface OngType {
   Name: string;
 }
 
-export interface JobType {
-  JobTypeId: number;
-  Name: string;
-}
-
 export interface Assistant {
   AssistantId: number;
   Name: string;
@@ -50,12 +45,12 @@ export interface Post {
   Title: string;
   Content: string;
   OngId: number;
-  JobTypeId: number;
+  StartDate: string;
+  FinishDate: string;
   CreatedAt: Date;
   FinishedAt: Date;
   AssignedAt: Date;
   AssistantId: number;
-  JobType?: JobType;
   Ong?: Ong;
   Assistant?: Assistant;
 }
@@ -71,6 +66,11 @@ export interface Ong {
   OngType: OngType;
 }
 
+export interface Role {
+  RoleId: number;
+  Name: string;
+}
+
 export interface User {
   User_Id: string;
   Name: string;
@@ -83,4 +83,5 @@ export interface User {
   LastUpdatedAt: Date;
   Assistant?: Assistant;
   Ong?: Ong;
+  Role: Role;
 }

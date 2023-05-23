@@ -32,7 +32,7 @@ function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen grid grid-rows-[auto,_1fr] box-border">
-      <header className="header text-custom-white bg-custom-black px-8 text-lg sticky top-0 left-0 w-full">
+      <header className="after:inset-0 after:-z-10 after:[content:''] after:bg-black after:absolute backdrop-blur after:bg-custom-black/90 z-10 header text-custom-white px-8 text-lg sticky top-0 left-0 w-full">
         <nav className=" relative navbar grid grid-cols-3  justify-between p-2 h-20">
           <div
             className="lg:hidden my-auto hamburguer"
@@ -51,7 +51,7 @@ function Layout({ children }: LayoutProps) {
           <div
             className={`${
               !showMenu && "hidden"
-            } bg-custom-black w-full lg:pt-0 pt-6 lg:bg-none lg:static left-1/2 -translate-x-1/2 lg:translate-x-0 top-full absolute flex-col lg:flex-row flex gap-8 items-center justify-center`}
+            } w-full lg:pt-0 pt-6 lg:bg-none lg:static left-1/2 -translate-x-1/2 lg:translate-x-0 top-full absolute flex-col lg:flex-row flex gap-8 items-center justify-center`}
           >
             <Link href="/" className="option">
               <Span>Início</Span>
@@ -67,7 +67,7 @@ function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="hidden lg:flex ml-auto gap-3 items-center">
-            <Link href="/">
+            <Link href="/login">
               <SecondaryButton className="shadow-md duration-200">
                 Login
               </SecondaryButton>

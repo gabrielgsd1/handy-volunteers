@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "./_layout";
-import maos from "../assets/maos.png";
+import maos from "@/assets/maos.png";
 import logo from "../assets/logo.png";
 import Image from "next/image";
 import GreenHighlight from "@/components/GreenHighlight";
@@ -18,7 +18,12 @@ function TelaInicial({ children }: LayoutProps) {
   return (
     <Layout>
       <main className="grid text-lg responsive-font">
-        <ImageDiv className="px-12 py-16 relative">
+        <div className="px-12 py-16 relative">
+          <Image
+            src={maos}
+            alt="ij"
+            className="absolute w-full h-full object-cover -z-10 inset-0 after:[content:''] opacity-25"
+          />
           <p className="text-4xl md:text-5xl font-bold">
             <GreenHighlight className="green-gradient">
               #FazerADiferença
@@ -43,7 +48,7 @@ function TelaInicial({ children }: LayoutProps) {
               </Button>
             </Link>
           </div>
-        </ImageDiv>
+        </div>
 
         <div className="p-16 mt-8">
           <p className="text-2xl text-center mb-16 px-2">
@@ -57,20 +62,5 @@ function TelaInicial({ children }: LayoutProps) {
     </Layout>
   );
 }
-
-const ImageDiv = styled.div`
-  position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    opacity: 0.3;
-    z-index: -1;
-    inset: 0;
-    background-image: url(assets/maos.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-`;
 
 export default TelaInicial;

@@ -10,13 +10,13 @@ const availableRoutes = [
   },
   {
     role: ["Ong"],
-    text: "Meus posts",
-    path: "/ong",
+    text: "Meus trabalhos atuais",
+    path: "/ong/current",
   },
   {
-    role: ["Assistant"],
-    text: "Trabalhos",
-    path: "/assistant",
+    role: ["Ong"],
+    text: "Criar trabalho",
+    path: "/posts/create",
   },
   {
     role: ["Assistant"],
@@ -43,6 +43,7 @@ function Sidebar() {
               </button>
             )
         )}
+
         {/* <button className="item hover:text-custom-green">
           <Link href="/home">Início</Link>
         </button>
@@ -60,6 +61,12 @@ function Sidebar() {
         </button>
         <button className="item hover:text-custom-green">Certificados</button> */}
         <button className="item hover:text-custom-green">Ajuda</button>
+        <button
+          className="item hover:text-custom-green"
+          onClick={userCtx?.signOut}
+        >
+          Sair
+        </button>
       </div>
     </aside>
   );

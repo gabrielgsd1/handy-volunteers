@@ -77,7 +77,7 @@ function CreatePost() {
         jobTypeId: 1,
       });
       messageSuccess("Post criado com sucesso");
-      router.push("/ong");
+      router.push("/home");
     } catch (e: any) {
       messageError(e?.response?.data?.message || "Erro ao criar post");
     } finally {

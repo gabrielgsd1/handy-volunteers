@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function getNumbers(text: string) {
   return (text.match(/[0-9]/g) || [""]).join("");
 }
@@ -8,4 +10,8 @@ export function formatCnpj(text: string) {
 
 export function formatCpf(text: string) {
   return text.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
+export function formatDate(date: string) {
+  return moment(date).format("DD/MM/YYYY HH:mm");
 }

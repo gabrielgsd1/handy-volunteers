@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { api } from "@/services/apiService";
 import { UserContext } from "@/contexts/UserContext";
+import { useRouter } from "next/router";
 
 function AuthLayer({ children }: { children: JSX.Element }) {
   const [authorized, setAuthorized] = useState<null | boolean>(null);
   const userCtx = useContext(UserContext);
+  const router = useRouter();
 
   async function verifyCookies() {
     try {
-      console.log(authorized);
       const isAuthorized = await api.get("/users/verify-token");
-      console.log(isAuthorized.data);
       if (isAuthorized.data?.user) {
         setAuthorized(true);
         userCtx?.setUser(isAuthorized.data.user);
@@ -18,6 +18,9 @@ function AuthLayer({ children }: { children: JSX.Element }) {
     } catch (e) {
       console.log(e);
       setAuthorized(false);
+      setTimeout(() => {
+        router.push("/");
+      }, 500);
     }
   }
 

@@ -47,9 +47,9 @@ export interface Post {
   OngId: number;
   StartDate: string;
   FinishDate: string;
-  CreatedAt: Date;
-  FinishedAt: Date;
-  AssignedAt: Date;
+  CreatedAt: string;
+  FinishedAt: string;
+  AssignedAt: string;
   AssistantId: number;
   Ong?: Ong;
   Assistant?: Assistant;
@@ -79,8 +79,8 @@ export interface User {
   Hash: string;
   Salt: string;
   RoleId: number;
-  CreatedAt: Date;
-  LastUpdatedAt: Date;
+  CreatedAt: string;
+  LastUpdatedAt: string;
   Assistant?: Assistant;
   Ong?: Ong;
   Role: Role;

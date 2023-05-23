@@ -9,6 +9,7 @@ import Link from "next/link";
 import { UserContext } from "@/contexts/UserContext";
 import { messageError, messageSuccess } from "@/components/Message";
 import { useRouter } from "next/router";
+import { formatDate } from "@/utils/utils";
 
 interface PostProps {
   post: Post;
@@ -73,14 +74,21 @@ function Post({ post }: PostProps) {
         <p className="py-2 text-lg">
           Possui assistente: {post.AssistantId ? "Sim" : "Não"}
         </p>
+        {post.StartDate && (
+          <p className="py-2 text-lg">Início: {formatDate(post.StartDate)}</p>
+        )}
+        {post.FinishDate && (
+          <p className="py-2 text-lg">
+            Acaba em: {formatDate(post.FinishDate)}
+          </p>
+        )}
         {post.Assistant && (
           <>
             <p className="py-2 text-lg">
               Tarefa finalizada: {post.FinishedAt ? "Sim" : "Não"}
             </p>
             <p className="py-2 text-lg">
-              Tarefa foi ocupada em:{" "}
-              {moment(post.AssignedAt).format("DD/MM/YYYY - HH:mm")}
+              Tarefa foi ocupada em: {formatDate(post.AssignedAt)}
             </p>
           </>
         )}
@@ -88,14 +96,12 @@ function Post({ post }: PostProps) {
           <p className="title text-lg font-semibold lg:text-2xl">
             {post.Title}
           </p>
-          <p>
-            Postado em {moment(post.CreatedAt).format("DD/MM/YYYY - HH:mm")}
-          </p>
+          <p>Postado em {formatDate(post.CreatedAt)}</p>
           <pre className="whitespace-pre-wrap text-md lg:text-lg my-4 font-[inherit] text-clip text-">
             {post.Content}
           </pre>
         </div>
-        {!hasAssistant && (
+        {!hasAssistant && userCtx?.user?.Role.Name === "Assistant" && (
           <Button onClick={assignJob} loading={loading}>
             Aplicar para trabalho
           </Button>
@@ -111,8 +117,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const post_id = ctx.params?.post_id;
 
   const post = await api.get<Post>(`/posts/${post_id}`);
-
-  console.log(post.data);
 
   return {
     props: {

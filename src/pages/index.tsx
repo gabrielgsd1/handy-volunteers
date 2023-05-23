@@ -73,7 +73,7 @@ export default function Home(): JSX.Element {
         </div>
         <div className="login flex-1 m-6">
           <Form
-            className="m-auto max-w-[500px] min-w-[200px] flex gap-4 flex-col"
+            className="m-auto min-w-[200px] flex gap-4 flex-col"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <Input

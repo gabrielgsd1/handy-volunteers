@@ -32,8 +32,8 @@ function OngHomePage() {
 
   return (
     <section className="pl-6 pr-16 mb-12">
-      <div className="text-xl my-8">
-        <p className="font-semibold">
+      <div className="my-8">
+        <p className="font-semibold text-2xl ">
           Olá{" "}
           <GreenHighlight className="capitalize">
             {ong.data?.OngName}

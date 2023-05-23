@@ -13,7 +13,7 @@ function CurrentJobs() {
   const userCtx = useContext(UserContext);
   const currentJobs = useFetch<Post[]>(
     "GET",
-    `/posts/assistant/current/${userCtx?.user?.Assistant?.AssistantId}`
+    `/posts/ong/current/${userCtx?.user?.Assistant?.AssistantId}`
   );
   return (
     <LoggedLayout>

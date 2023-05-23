@@ -1,6 +1,15 @@
 import React, { ButtonHTMLAttributes } from "react";
+import styled from "styled-components";
 
-function SecondaryButton(props: ButtonHTMLAttributes<HTMLButtonElement>) {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  loading?: boolean;
+}
+
+function SecondaryButton(props: Props) {
+  if (props.loading)
+    return (
+      <Div className="h-8 w-8 rounded-[50%] border-4 border-l-transparent border-custom-green"></Div>
+    );
   return (
     <button
       {...props}
@@ -9,4 +18,16 @@ function SecondaryButton(props: ButtonHTMLAttributes<HTMLButtonElement>) {
   );
 }
 
+const Div = styled.div`
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 export default SecondaryButton;

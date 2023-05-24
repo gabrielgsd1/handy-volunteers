@@ -31,9 +31,9 @@ function Layout({ children }: LayoutProps) {
   }, []);
 
   return (
-    <div className="min-h-screen grid grid-rows-[auto,_1fr] box-border">
+    <div className="py-4 min-h-screen grid grid-rows-[auto,_1fr] box-border">
       <header className="after:inset-0 after:-z-10 after:[content:''] after:bg-black after:absolute backdrop-blur after:bg-custom-black/90 z-10 header text-custom-white px-8 text-lg sticky top-0 left-0 w-full">
-        <nav className=" relative navbar grid grid-cols-3  justify-between p-2 h-20">
+        <nav className=" relative navbar grid grid-cols-3  justify-between h-20">
           <div
             className="lg:hidden my-auto hamburguer"
             onClick={(e) => {
@@ -46,7 +46,7 @@ function Layout({ children }: LayoutProps) {
               className={`duration-150 ${showMenu && "rotate-90"}`}
             />
           </div>
-          <Image className="m-auto" alt="logo" src={logotipo} width={70} />
+          <Image className="m-auto" alt="logo" src={logotipo} width={60} />
 
           <div
             className={`${

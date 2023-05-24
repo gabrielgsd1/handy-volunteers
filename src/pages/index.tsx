@@ -24,16 +24,23 @@ function TelaInicial({ children }: LayoutProps) {
             alt="ij"
             className="absolute w-full h-full object-cover -z-10 inset-0 after:[content:''] opacity-25"
           />
-          <p className="text-4xl md:text-5xl font-bold">
-            <GreenHighlight className="green-gradient">
-              #FazerADiferença
-            </GreenHighlight>
-          </p>
+          <div className="text-and-logo flex items-center gap-8">
+            <div className="logo">
+              <Image src={logo} width={120} alt="logo" />
+            </div>
+            <div className="text">
+              <p className="text-4xl md:text-5xl font-bold">
+                <GreenHighlight className="green-gradient">
+                  #FazerADiferença
+                </GreenHighlight>
+              </p>
 
-          <div>
-            <p className="text-4xl mt-4 md:text-5xl text-white">
-              Contribuindo para um mundo melhor.
-            </p>
+              <div>
+                <p className="text-4xl mt-4 md:text-5xl text-white">
+                  Contribuindo para um mundo melhor.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="flex gap-4 flex-col lg:flex-row justify-start lg:items-end mt-32 lg:mt-52 font-bold">

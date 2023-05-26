@@ -5,19 +5,16 @@ import { UserContext } from "@/contexts/UserContext";
 import Post from "./posts/[post_id]";
 import { BigPost } from "./assistant";
 import Loading from "@/components/Loading";
-import { GetServerSideProps } from "next";
-import { OngType } from "@/interfaces/interfaces";
-import { api } from "@/services/apiService";
 
 function CurrentJobs() {
   const userCtx = useContext(UserContext);
   const currentJobs = useFetch<Post[]>(
     "GET",
-    `/posts/ong/current/${userCtx?.user?.Assistant?.AssistantId}`
+    `/posts/assistant/current/${userCtx?.user?.Assistant?.AssistantId}`
   );
   return (
     <LoggedLayout>
-      <div className="mx-10">
+      <div className="mx-10 mb-8">
         {currentJobs.isLoading ? (
           <Loading />
         ) : (
@@ -39,12 +36,6 @@ function CurrentJobs() {
 
 export default CurrentJobs;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await api.get<OngType[]>("/ongtype");
+// export const getServerSideProps: GetServerSideProps = async () => {
 
-  return {
-    props: {
-      ongTypes: res.data,
-    },
-  };
-};
+// };

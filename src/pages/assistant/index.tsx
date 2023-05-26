@@ -12,6 +12,7 @@ import moment from "moment";
 import Link from "next/link";
 import Button from "@/components/Buttons";
 import { formatCnpj, getNumbers } from "@/utils/utils";
+import Jobs from "@/components/Jobs/jobs";
 
 function Assistant() {
   const userCtx = useContext(UserContext);
@@ -44,7 +45,7 @@ function Assistant() {
   //   );
 
   return (
-    <div className="mx-10">
+    <div className="mx-6 lg:mx-10">
       <div className="head">
         <p className="lg:text-4xl text-3xl font-semibold">
           Olá, {userCtx.user?.Name.split(" ")[0]}
@@ -57,9 +58,10 @@ function Assistant() {
             id="job-type"
             onChange={(e) => handleChangeFilter(e.currentTarget.value)}
           >
-            <option selected={filter === null} value=""></option>
+            <option className="" selected={filter === null} value=""></option>
             {ongTypes.data?.map((type) => (
               <option
+                className="text-custom-black"
                 key={type.Name}
                 selected={(filter || 0) === type.OngTypeId}
                 value={type.OngTypeId.toString()}
@@ -86,7 +88,7 @@ function Assistant() {
           <p className="text-3xl font-semibold tracking-wide pb-6">
             Trabalhos disponíveis
           </p>
-          <Posts posts={posts.data} loading={posts.isLoading} />
+          <Jobs loading={posts.isLoading} posts={posts.data || []} />
         </div>
       </div>
     </div>

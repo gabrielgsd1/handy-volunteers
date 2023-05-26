@@ -40,9 +40,7 @@ export function useFetch<T, U = unknown>(
         method: method,
         data: options?.body || body,
       });
-      console.log(res.request);
       setData(res.data);
-      console.log(res.data);
     } catch (e: any) {
       setReqState("error");
       if (e.response) setError(e.response.data.message);

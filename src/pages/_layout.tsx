@@ -12,10 +12,12 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   useEffect(() => {
+    if (document.body.clientWidth >= 1024) setShowMenu(true);
     window.addEventListener("resize", (e) => {
       if (document.body.clientWidth >= 1024) setShowMenu(true);
+      else setShowMenu(false);
     });
     const header = document.querySelector(".header");
     if (header) {
@@ -32,18 +34,16 @@ function Layout({ children }: LayoutProps) {
 
   return (
     <div className="py-4 min-h-screen grid grid-rows-[auto,_1fr] box-border">
-      <header className="after:inset-0 after:-z-10 after:[content:''] after:bg-black after:absolute backdrop-blur after:bg-custom-black/90 z-10 header text-custom-white px-8 text-lg sticky top-0 left-0 w-full">
-        <nav className=" relative navbar grid grid-cols-3  justify-between h-20">
-          <div
-            className="lg:hidden my-auto hamburguer"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowMenu((v) => !v);
-            }}
-          >
+      <header className="after:inset-0 after:-z-10 after:[content:''] after:bg-black after:absolute backdrop-blur after:bg-custom-black/[85%] z-10 header text-custom-white px-8 text-lg sticky top-0 left-0 w-full">
+        <nav className=" navbar grid grid-cols-3  justify-between h-20">
+          <div className="flex lg:hidden my-auto hamburguer">
             <FiMenu
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowMenu((v) => !v);
+              }}
               size={40}
-              className={`duration-150 ${showMenu && "rotate-90"}`}
+              className={`inline-block duration-150 ${showMenu && "rotate-90"}`}
             />
           </div>
           <Image className="m-auto" alt="logo" src={logotipo} width={60} />
@@ -51,7 +51,7 @@ function Layout({ children }: LayoutProps) {
           <div
             className={`${
               !showMenu && "hidden"
-            } w-full lg:pt-0 pt-6 lg:bg-none lg:static left-1/2 -translate-x-1/2 lg:translate-x-0 top-full absolute flex-col lg:flex-row flex gap-8 items-center justify-center`}
+            } w-full bg-custom-black py-4 lg:py-0 lg:pt-0 pt-6 lg:bg-none lg:static left-0 right-0 lg:translate-x-0 top-full absolute flex-col lg:flex-row flex gap-8 items-center justify-center`}
           >
             <Link href="/" className="option">
               <Span>Início</Span>
@@ -64,6 +64,16 @@ function Layout({ children }: LayoutProps) {
             <div className="option">
               <Span>Contato</Span>
             </div>
+            <Link href="/login">
+              <SecondaryButton className="lg:hidden shadow-md duration-200">
+                Login
+              </SecondaryButton>
+            </Link>
+            <Link href="/registro">
+              <Button className="lg:hidden btn-cadastro shadow-md duration-200 bg-custom-green text-black px-3 py-2 rounded-md  hover:bg-custom-dark-green hover:text-black">
+                Cadastro
+              </Button>
+            </Link>
           </div>
 
           <div className="hidden lg:flex ml-auto gap-3 items-center">

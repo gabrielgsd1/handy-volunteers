@@ -9,6 +9,8 @@ import Link from "next/link";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import Frames from "@/components/Frames/frames";
 import styled from "styled-components";
+import Jobs from "@/components/Jobs/jobs";
+import axios from "axios";
 
 interface LayoutProps {
   children: JSX.Element;
@@ -24,8 +26,8 @@ function TelaInicial({ children }: LayoutProps) {
             alt="ij"
             className="absolute w-full h-full object-cover -z-10 inset-0 after:[content:''] opacity-25"
           />
-          <div className="text-and-logo flex items-center gap-8">
-            <div className="logo">
+          <div className="text-and-logo flex items-center gap-2 lg:gap-6">
+            <div className="logo hidden lg:block">
               <Image src={logo} width={120} alt="logo" />
             </div>
             <div className="text">

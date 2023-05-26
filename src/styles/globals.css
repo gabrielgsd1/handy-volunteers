@@ -71,7 +71,7 @@ textarea:-webkit-autofill:focus
 }
 
 .responsive-font {
-  @apply [font-size:85%] lg:[font-size:100%]
+  @apply [font-size:88%] md:[font-size:93%] lg:[font-size:100%]
 }
 
 @layer components {

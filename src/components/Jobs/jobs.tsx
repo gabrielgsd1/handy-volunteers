@@ -8,23 +8,36 @@ import Link from "next/link";
 import { formatDate } from "@/utils/utils";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import { UserContext } from "@/contexts/UserContext";
+import Loading from "../Loading";
 
 interface JobsProps {
-  posts: Post[];
+  posts: Post[] | null;
+  loading?: boolean;
   onJobFinished?: (post: Post) => void;
   postIdButtonLoading?: null | string;
 }
 
-function Jobs(props: JobsProps) {
+function Jobs({
+  posts,
+  loading,
+  onJobFinished,
+  postIdButtonLoading,
+}: JobsProps) {
   const userCtx = useContext(UserContext);
+  if (loading) return <Loading />;
+  if (!posts?.length) return <p>Não há trabalhos.</p>;
   return (
-    <div className="grid place-items-center mt-16 gap-8 grid-cols-2">
-      {props.posts.map((post) => {
+    <div className="grid place-items-center mt-16 gap-8 grid-cols-1 lg:grid-cols-2">
+      {posts.map((post) => {
         return (
-          <div className="bg-custom-black w-full h-full rounded-xl px-8 py-4 duration-200 outline outline-transparent hover:outline-custom-green/75 hover:scale-[1.025] hover:bg-black">
-            <p className="text-2xl font-semibold">{post.Title}</p>
-            <p className="text-xl">{post.Ong?.OngName}</p>
-            <p>{post.Content.substring(0, 100)}</p>
+          <div className="responsive-font bg-custom-black w-full h-full rounded-xl px-8 py-4 duration-200 outline outline-transparent hover:outline-custom-green/75 hover:scale-[1.025] hover:bg-black">
+            <p className="text-lg lg:text-2xl font-semibold">{post.Title}</p>
+            <p className="text-base lg:text-xl">
+              Postado por {post.Ong?.OngName}
+            </p>
+            <p className="text-sm lg:text-base text-ellipsis">
+              {post.Content.substring(0, 100)}
+            </p>
             <p className="mt-2">
               Postada no dia {moment(post.CreatedAt).format("DD/MM/YYYY HH:mm")}
             </p>
@@ -53,16 +66,14 @@ function Jobs(props: JobsProps) {
               <div className="flex justify-end">
                 {userCtx?.user?.Role.Name === "Ong" && (
                   <SecondaryButton
-                    onClick={() =>
-                      props.onJobFinished && props.onJobFinished(post)
-                    }
-                    loading={props.postIdButtonLoading === post.PostId}
+                    onClick={() => onJobFinished && onJobFinished(post)}
+                    loading={postIdButtonLoading === post.PostId}
                   >
                     Marcar como finalizado
                   </SecondaryButton>
                 )}
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-end pt-4">
                 <Button>
                   <Link href={"/posts/" + post.PostId}> Ver Vaga </Link>
                 </Button>

@@ -1,6 +1,7 @@
 import { UserContext } from "@/contexts/UserContext";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
 const availableRoutes = [
   {
@@ -25,14 +26,35 @@ const availableRoutes = [
   },
 ];
 
-function Sidebar() {
+function Sidebar({ isOpen, closeSidebar, openSidebar }) {
   const userCtx = useContext(UserContext);
+
+  useEffect(() => {
+    if (document.body.clientWidth >= 1024) openSidebar();
+    window.addEventListener("resize", () => {
+      if (document.body.clientWidth >= 1024) return openSidebar();
+      closeSidebar();
+    });
+  }, []);
   return (
-    <aside className="[grid-area:_sidebar] p-6 top-0 bottom-0 fixed w-[250px]">
+    <aside
+      className={`duration-300 [grid-area:_sidebar] block p-6 z-10 bg-custom-black top-0 bottom-0 fixed ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } lg:w-[250px]`}
+    >
       <div className="sidebar-head text-center mb-6">
+        <div className="lg:hidden">
+          <AiOutlineClose
+            className="ml-auto cursor-pointer"
+            size={25}
+            onClick={closeSidebar}
+          />
+        </div>
         <div className="w-24 h-24 m-auto mb-4 rounded-full bg-slate-600"></div>
-        <p className="font-semibold">{userCtx?.user?.Name}</p>
-        <p>{userCtx?.user?.Email}</p>
+        <p className="font-semibold lg:text-base text-sm">
+          {userCtx?.user?.Name.split(" ").slice(0, 2).join(" ")}
+        </p>
+        {/* <p className="lg:text-base text-sm">{userCtx?.user?.Email}</p> */}
       </div>
       <div className="items flex flex-col gap-2 items-start">
         {availableRoutes.map(

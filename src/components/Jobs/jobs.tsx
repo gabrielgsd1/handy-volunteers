@@ -15,6 +15,7 @@ interface JobsProps {
   loading?: boolean;
   onJobFinished?: (post: Post) => void;
   postIdButtonLoading?: null | string;
+  noStatus?: boolean;
 }
 
 function Jobs({
@@ -22,6 +23,7 @@ function Jobs({
   loading,
   onJobFinished,
   postIdButtonLoading,
+  noStatus,
 }: JobsProps) {
   const userCtx = useContext(UserContext);
   if (loading) return <Loading />;
@@ -41,26 +43,31 @@ function Jobs({
             <p className="mt-2">
               Postada no dia {moment(post.CreatedAt).format("DD/MM/YYYY HH:mm")}
             </p>
-            {!post.AssistantId && !post.FinishedAt && (
-              <p className="mt-2 text-custom-green font-semibold">
-                Vaga Aberta
-              </p>
-            )}
-            {post.AssistantId && !post.FinishedAt && (
-              <p className="mt-2 text-custom-orange font-semibold">
-                Em Andamento
-              </p>
-            )}
-            {post.AssistantId && post.FinishedAt && (
-              <p className="mt-2 text-custom-strong-red font-semibold">
-                Vaga preenchida
-              </p>
-            )}
+            {!noStatus && (
+              <>
+                {!post.AssistantId && !post.FinishedAt && (
+                  <p className="mt-2 text-custom-green font-semibold">
+                    Vaga Aberta
+                  </p>
+                )}
+                {post.AssistantId && !post.FinishedAt && (
+                  <p className="mt-2 text-custom-orange font-semibold">
+                    Em Andamento
+                  </p>
+                )}
+                {post.AssistantId && post.FinishedAt && (
+                  <p className="mt-2 text-custom-strong-red font-semibold">
+                    Vaga preenchida
+                  </p>
+                )}
 
-            {post.FinishDate && post.StartDate && (
-              <p>
-                {formatDate(post.StartDate)} até {formatDate(post.FinishDate)}
-              </p>
+                {post.FinishDate && post.StartDate && (
+                  <p>
+                    {formatDate(post.StartDate)} até{" "}
+                    {formatDate(post.FinishDate)}
+                  </p>
+                )}
+              </>
             )}
             <div className="btns flex gap-6 justify-end items-center">
               <div className="flex justify-end">

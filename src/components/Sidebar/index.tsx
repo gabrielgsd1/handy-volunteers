@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-const availableRoutes = [
+const availableRoutes: Array<{ role: string[]; text: string; path: string }> = [
   {
     role: ["Assistant", "Ong"],
     text: "Início",
@@ -13,6 +13,11 @@ const availableRoutes = [
     role: ["Ong"],
     text: "Meus trabalhos atuais",
     path: "/ong/current",
+  },
+  {
+    role: ["Assistant"],
+    text: "Meus certificados",
+    path: "/certificates",
   },
   {
     role: ["Ong"],
@@ -38,7 +43,9 @@ function Sidebar({ isOpen, closeSidebar, openSidebar }) {
   }, []);
   return (
     <aside
-      className={`duration-300 [grid-area:_sidebar] block p-6 z-10 bg-custom-black top-0 bottom-0 fixed ${
+      className={`${
+        document.body.clientWidth <= 1024 && "duration-300"
+      } [grid-area:_sidebar] block p-6 z-10 bg-custom-black top-0 bottom-0 fixed ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } lg:w-[250px]`}
     >

@@ -12,6 +12,14 @@ export function formatCpf(text: string) {
   return text.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
-export function formatDate(date: string) {
-  return moment(date).format("DD/MM/YYYY HH:mm");
+export function formatDate(date: string, format?: string) {
+  return moment(date).format(format || "DD/MM/YYYY HH:mm");
+}
+
+export function getValueOf(date: string) {
+  return new Date(date).valueOf();
+}
+
+export function milissecondsToHour(from: number, to: number) {
+  return Math.round((to - from) / 1000 / 60 / 60);
 }

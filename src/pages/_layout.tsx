@@ -61,9 +61,10 @@ function Layout({ children }: LayoutProps) {
               <Span>Sobre nós</Span>
             </Link>
 
-            <div className="option">
-              <Span>Contato</Span>
-            </div>
+            <Link href={"/contato"}>
+              <Span>Fale Conosco</Span>
+            </Link>
+
             <Link href="/login">
               <SecondaryButton className="lg:hidden shadow-md duration-200">
                 Login

@@ -36,14 +36,14 @@ function CurrentJobs() {
   return (
     <LoggedLayout>
       <section className="px-12">
-        <p>trabalhos atuais</p>
-        {posts.data && (
-          <Jobs
-            postIdButtonLoading={postLoading}
-            onJobFinished={handleOnFinished}
-            posts={posts.data}
-          />
-        )}
+        <p className="text-2xl font-bold">Trabalhos Atuais</p>
+          {posts.data && posts.data.length > 0 ?(
+            <Jobs
+              postIdButtonLoading={postLoading}
+              onJobFinished={handleOnFinished}
+              posts={posts.data}
+            />
+      ):<p>Não há trabalhos disponíveis</p> }
       </section>
     </LoggedLayout>
   );

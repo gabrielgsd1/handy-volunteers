@@ -6,6 +6,7 @@ import AuthLayer from "@/components/AuthLayer";
 import { UserContext } from "@/contexts/UserContext";
 import Assistant from "./assistant";
 import OngHomePage from "./ong";
+import { Head } from "next/document";
 
 function Home() {
   const userCtx = useContext(UserContext);
@@ -18,14 +19,19 @@ function Home() {
   };
 
   return (
-    <AuthLayer>
-      <LoggedLayout>
-        {roleMapping[role || ""]}
-        {/* <Link href="/posts/create">
+    <>
+      <Head>
+        <title>Página Inicial</title>
+      </Head>
+      <AuthLayer>
+        <LoggedLayout>
+          {roleMapping[role || ""]}
+          {/* <Link href="/posts/create">
           <Button>Criar Post</Button>
         </Link> */}
-      </LoggedLayout>
-    </AuthLayer>
+        </LoggedLayout>
+      </AuthLayer>
+    </>
   );
 }
 

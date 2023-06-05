@@ -14,6 +14,7 @@ import { messageError, messageSuccess } from "@/components/Message";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Post } from "@/interfaces/interfaces";
+import { Head } from "next/document";
 
 function CreatePost() {
   async function getPost() {
@@ -87,64 +88,69 @@ function CreatePost() {
   }
 
   return (
-    <LoggedLayout>
-      <div className="post-creation p-6 flex flex-col gap-8">
-        <div className="post-head p-6">
-          <p className="text-2xl lg:text-4xl font-bold green-gradient">
-            Criar post
-          </p>
-        </div>
-        <Form className="post-body" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="inputs flex flex-col gap-8">
-            <p>
-              Você criará um trabalho do tipo:{" "}
-              {userCtx?.user?.Ong?.OngType.Name}.
+    <>
+      <Head>
+        <title>Criar Post</title>
+      </Head>
+      <LoggedLayout>
+        <div className="post-creation p-6 flex flex-col gap-8">
+          <div className="post-head p-6">
+            <p className="text-2xl lg:text-4xl font-bold green-gradient">
+              Criar post
             </p>
-            <Input
-              min={new Date().toISOString()}
-              type="datetime-local"
-              value={form.watch("startDate")}
-              {...form.register("startDate")}
-              onChange={(e) => form.setValue("startDate", e.target.value)}
-              name="Data de início"
-              id="startdate"
-              errorMessage={form.formState?.errors?.startDate?.message}
-            />
-            <Input
-              value={form.watch("finishDate")}
-              {...form.register("finishDate")}
-              onChange={(e) => form.setValue("finishDate", e.target.value)}
-              min={new Date().toISOString()}
-              type="datetime-local"
-              name="Data final"
-              id="enddate"
-              errorMessage={form.formState?.errors?.finishDate?.message}
-            />
-            <Input
-              value={form.watch("title")}
-              {...form.register("title")}
-              onChange={(e) => form.setValue("title", e.target.value)}
-              id="title"
-              name="Título"
-              errorMessage={form.formState?.errors?.title?.message}
-            />
-            <Textarea
-              value={form.watch("content")}
-              {...form.register("content")}
-              onChange={(e) => form.setValue("content", e.target.value)}
-              id="content"
-              name="Conteúdo"
-              errorMessage={form.formState?.errors?.content?.message}
-            />
-            <div className="btn min-w-[max(50%,_250px)] m-auto">
-              <Button loading={loading} className="w-full py-4">
-                Criar post
-              </Button>
-            </div>
           </div>
-        </Form>
-      </div>
-    </LoggedLayout>
+          <Form className="post-body" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="inputs flex flex-col gap-8">
+              <p>
+                Você criará um trabalho do tipo:{" "}
+                {userCtx?.user?.Ong?.OngType.Name}.
+              </p>
+              <Input
+                min={new Date().toISOString()}
+                type="datetime-local"
+                value={form.watch("startDate")}
+                {...form.register("startDate")}
+                onChange={(e) => form.setValue("startDate", e.target.value)}
+                name="Data de início"
+                id="startdate"
+                errorMessage={form.formState?.errors?.startDate?.message}
+              />
+              <Input
+                value={form.watch("finishDate")}
+                {...form.register("finishDate")}
+                onChange={(e) => form.setValue("finishDate", e.target.value)}
+                min={new Date().toISOString()}
+                type="datetime-local"
+                name="Data final"
+                id="enddate"
+                errorMessage={form.formState?.errors?.finishDate?.message}
+              />
+              <Input
+                value={form.watch("title")}
+                {...form.register("title")}
+                onChange={(e) => form.setValue("title", e.target.value)}
+                id="title"
+                name="Título"
+                errorMessage={form.formState?.errors?.title?.message}
+              />
+              <Textarea
+                value={form.watch("content")}
+                {...form.register("content")}
+                onChange={(e) => form.setValue("content", e.target.value)}
+                id="content"
+                name="Conteúdo"
+                errorMessage={form.formState?.errors?.content?.message}
+              />
+              <div className="btn min-w-[max(50%,_250px)] m-auto">
+                <Button loading={loading} className="w-full py-4">
+                  Criar post
+                </Button>
+              </div>
+            </div>
+          </Form>
+        </div>
+      </LoggedLayout>
+    </>
   );
 }
 

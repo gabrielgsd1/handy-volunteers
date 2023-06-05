@@ -2,10 +2,10 @@ import { AiOutlineMail, AiFillPhone } from "react-icons/ai";
 
 function Footer() {
   return (
-    <footer className="bg-custom-dark-green py-8">
+    <footer className="bg-custom-dark-green py-8 px-4">
       <div className="w-full max-w-screen-xl mx-auto flex flex-col gap-2">
         <div className="border-gray-200 dark:border-gray-700">
-          <span className="text-custom-white block text-base sm:text-center">
+          <span className="text-custom-white block text-base text-center">
             © 2023{" "}
             <a
               href="https://preeminent-crepe-0fa736.netlify.app/"
@@ -16,7 +16,7 @@ function Footer() {
             . Todos os Direitos Reservados.
           </span>
         </div>
-        <div className="sm:flex gap-4 sm:items-center sm:justify-center">
+        <div className="flex gap-4 items-center justify-center">
           <p className="flex gap-2 items-center">
             <AiOutlineMail className="text-3xl" /> handyvolunteers@gmail.com
           </p>

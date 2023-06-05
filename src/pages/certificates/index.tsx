@@ -9,6 +9,7 @@ import { formatDate, getValueOf, milissecondsToHour } from "@/utils/utils";
 import Button from "@/components/Buttons";
 import jsPDF from "jspdf";
 import logo from "@/assets/logo.png";
+import { Head } from "next/document";
 
 function Certificates() {
   const userCtx = useContext(UserContext);
@@ -54,25 +55,30 @@ function Certificates() {
   }
 
   return (
-    <LoggedLayout>
-      <div className="mx-4 lg:mx-12 my-8">
-        <GreenHighlight className="text-3xl font-normal">
-          Meus Certificados
-        </GreenHighlight>
-        <p className="py-4">
-          <GreenHighlight className="text-xl font-light">
-            {certificates.data?.length} certificados
+    <>
+      <Head>
+        <title>Meus certificados</title>
+      </Head>
+      <LoggedLayout>
+        <div className="mx-4 lg:mx-12 my-8">
+          <GreenHighlight className="text-3xl font-normal">
+            Meus Certificados
           </GreenHighlight>
-        </p>
-        <div className="certificates">
-          {certificates.data?.map((certificate) => (
-            <div className="py-4">
-              <Certificate generatePdf={savePdf} post={certificate} />
-            </div>
-          ))}
+          <p className="py-4">
+            <GreenHighlight className="text-xl font-light">
+              {certificates.data?.length} certificados
+            </GreenHighlight>
+          </p>
+          <div className="certificates">
+            {certificates.data?.map((certificate) => (
+              <div className="py-4">
+                <Certificate generatePdf={savePdf} post={certificate} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </LoggedLayout>
+      </LoggedLayout>
+    </>
   );
 }
 

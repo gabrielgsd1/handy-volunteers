@@ -21,7 +21,8 @@ function MyProfile() {
 
   return (
     <AuthLayer>
-      <LoggedLayout>
+      <></>
+      {/* <LoggedLayout>
         <div className="grid grid-cols-2 gap-6 px-8">
           {data && (
             <>
@@ -35,13 +36,13 @@ function MyProfile() {
                   id="2"
                 />
               )}
-              {/* <Input value={data.} name="somethign" id="2" />
+              <Input value={data.} name="somethign" id="2" />
             <Input value={} name="somethign" id="2" />
-            <Input value={} name="somethign" id="2" /> */}
+            <Input value={} name="somethign" id="2" />
             </>
           )}
         </div>
-      </LoggedLayout>
+      </LoggedLayout> */}
     </AuthLayer>
   );
 }

@@ -9,7 +9,7 @@ interface MaskedInputProps extends InputProps {
 
 function MaskedInput({ mask, id, name, ...rest }: MaskedInputProps) {
   return (
-    <div className={`${rest.divClassname} flex flex-col gap-2 outline-none`}>
+    <div className={`${rest.divClassname} flex flex-col gap-[2px]`}>
       <label htmlFor={id} className="label-config">
         {name}
       </label>

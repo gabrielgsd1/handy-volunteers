@@ -6,6 +6,7 @@ import logotipo from "@/assets/logo.png";
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 import styled from "styled-components";
+import Footer from "@/components/Footer/Footer";
 
 interface LayoutProps {
   children: JSX.Element;
@@ -33,9 +34,9 @@ function Layout({ children }: LayoutProps) {
   }, []);
 
   return (
-    <div className="py-4 min-h-screen grid grid-rows-[auto,_1fr] box-border">
+    <div className="min-h-screen grid grid-rows-[auto,_1fr] box-border">
       <header className="after:inset-0 after:-z-10 after:[content:''] after:bg-black after:absolute backdrop-blur after:bg-custom-black/[85%] z-10 header text-custom-white px-8 text-lg sticky top-0 left-0 w-full">
-        <nav className=" navbar grid grid-cols-3  justify-between h-20">
+        <nav className=" navbar place-items-center grid [grid-template-columns:_1fr_2fr_1fr] h-20">
           <div className="flex lg:hidden my-auto hamburguer">
             <FiMenu
               onClick={(e) => {
@@ -51,17 +52,17 @@ function Layout({ children }: LayoutProps) {
           <div
             className={`${
               !showMenu && "hidden"
-            } w-full bg-custom-black py-4 lg:py-0 lg:pt-0 pt-6 lg:bg-none lg:static left-0 right-0 lg:translate-x-0 top-full absolute flex-col lg:flex-row flex gap-8 items-center justify-center`}
+            } w-full bg-custom-black lg:py-0 lg:pt-0 lg:grid lg:grid-cols-3 lg:bg-none lg:static left-0 right-0 lg:translate-x-0 top-full absolute flex-col lg:flex-row flex lg:gap-0 gap-8 py-4 items-center justify-center`}
           >
-            <Link href="/" className="option">
+            <Link className="text-center m-auto" href="/">
               <Span>Início</Span>
             </Link>
 
-            <Link href={"/sobrenos"}>
+            <Link className="text-center m-auto" href={"/sobrenos"}>
               <Span>Sobre nós</Span>
             </Link>
 
-            <Link href={"/contato"}>
+            <Link className="text-center m-auto" href={"/contato"}>
               <Span>Fale Conosco</Span>
             </Link>
 
@@ -92,6 +93,7 @@ function Layout({ children }: LayoutProps) {
         </nav>
       </header>
       <div className="box-border">{children}</div>
+      <Footer />
     </div>
   );
 }

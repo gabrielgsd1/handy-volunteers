@@ -6,7 +6,7 @@ import AuthLayer from "@/components/AuthLayer";
 import { UserContext } from "@/contexts/UserContext";
 import Assistant from "./assistant";
 import OngHomePage from "./ong";
-import { Head } from "next/document";
+import Head from "next/head";
 
 function Home() {
   const userCtx = useContext(UserContext);

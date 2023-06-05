@@ -10,7 +10,7 @@ import { UserContext } from "@/contexts/UserContext";
 import { messageError, messageSuccess } from "@/components/Message";
 import { useRouter } from "next/router";
 import { formatDate } from "@/utils/utils";
-import { Head } from "next/document";
+import Head from "next/head";
 
 interface PostProps {
   post: Post;

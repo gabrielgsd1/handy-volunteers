@@ -9,7 +9,7 @@ import { formatDate, getValueOf, milissecondsToHour } from "@/utils/utils";
 import Button from "@/components/Buttons";
 import jsPDF from "jspdf";
 import logo from "@/assets/logo.png";
-import { Head } from "next/document";
+import Head from "next/head";
 
 function Certificates() {
   const userCtx = useContext(UserContext);

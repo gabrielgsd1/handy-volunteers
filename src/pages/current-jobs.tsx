@@ -5,7 +5,7 @@ import { UserContext } from "@/contexts/UserContext";
 import Post from "./posts/[post_id]";
 import { BigPost } from "./assistant";
 import Loading from "@/components/Loading";
-import { Head } from "next/document";
+import Head from "next/head";
 
 function CurrentJobs() {
   const userCtx = useContext(UserContext);

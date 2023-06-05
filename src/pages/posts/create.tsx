@@ -14,7 +14,7 @@ import { messageError, messageSuccess } from "@/components/Message";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Post } from "@/interfaces/interfaces";
-import { Head } from "next/document";
+import Head from "next/head";
 
 function CreatePost() {
   async function getPost() {

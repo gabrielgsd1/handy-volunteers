@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { useFetch } from "@/hooks/useFetch";
 import { messageError } from "@/components/Message";
-import { Head } from "next/document";
+import Head from "next/head";
 
 const possibleComponents = {
   Ong: "",

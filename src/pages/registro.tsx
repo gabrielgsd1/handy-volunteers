@@ -11,7 +11,7 @@ import GreenHighlight from "@/components/GreenHighlight";
 import { GetServerSideProps } from "next";
 import { api } from "@/services/apiService";
 import { OngType } from "@/interfaces/interfaces";
-import { Head } from "next/document";
+import Head from "next/head";
 
 interface RegistroProps {
   ongTypes: OngType[];

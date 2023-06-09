@@ -69,9 +69,9 @@ function Jobs({
                 )}
               </>
             )}
-            <div className="btns flex gap-6 justify-end items-center">
+            <div className="btns flex gap-6 justify-end items-center pt-4">
               <div className="flex justify-end">
-                {userCtx?.user?.Role.Name === "Ong" && (
+                {userCtx?.user?.Role.Name === "Ong" && onJobFinished && (
                   <SecondaryButton
                     onClick={() => onJobFinished && onJobFinished(post)}
                     loading={postIdButtonLoading === post.PostId}
@@ -80,10 +80,10 @@ function Jobs({
                   </SecondaryButton>
                 )}
               </div>
-              <div className="flex justify-end pt-4">
-                <Button>
-                  <Link href={"/posts/" + post.PostId}> Ver Vaga </Link>
-                </Button>
+              <div className="flex justify-end">
+                <Link href={"/posts/" + post.PostId}>
+                  <Button>Ver Vaga</Button>
+                </Link>
               </div>
             </div>
           </div>

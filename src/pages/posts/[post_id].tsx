@@ -7,10 +7,15 @@ import moment from "moment";
 import Button from "@/components/Buttons";
 import Link from "next/link";
 import { UserContext } from "@/contexts/UserContext";
-import { messageError, messageSuccess } from "@/components/Message";
+import {
+  messageError,
+  messageSuccess,
+  messageWarning,
+} from "@/components/Message";
 import { useRouter } from "next/router";
 import { formatDate } from "@/utils/utils";
 import Head from "next/head";
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
 
 interface PostProps {
   post: Post;
@@ -19,6 +24,8 @@ interface PostProps {
 function Post({ post }: PostProps) {
   const hasAssistant = Boolean(post.AssistantId);
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [preDelete, setPreDelete] = useState(false);
   const userCtx = useContext(UserContext);
   const router = useRouter();
 
@@ -44,7 +51,21 @@ function Post({ post }: PostProps) {
     }
   }
 
-  console.log(post.Content);
+  async function handleDelete() {
+    setDeleteLoading(true);
+    try {
+      await api.delete(`/posts/${post.PostId}`);
+      messageSuccess("Post deletado com sucesso");
+      router.push("/home");
+    } catch (e: any) {
+      messageError(e?.response?.data?.message || "Erro ao apagar");
+    } finally {
+      setDeleteLoading(false);
+      setPreDelete(false);
+    }
+  }
+
+  console.log(post.AssistantId === userCtx?.user?.Assistant?.AssistantId);
 
   return (
     <>
@@ -67,6 +88,14 @@ function Post({ post }: PostProps) {
               </p>
             </div>
           )}
+          {post.AssistantId === userCtx?.user?.Assistant?.AssistantId &&
+            !post.FinishedAt && (
+              <p className="text-yellow-400">
+                Você é o assistente deste post, a ONG entrará em contato com
+                você por e-mail ou telefone lhe fornecendo mais informações,
+                como local e informações mais detalhadas sobre a tarefa.
+              </p>
+            )}
           <p className="py-2 text-lg">
             ONG:{" "}
             <Link className="hover:underline" href={"/ong/" + post.OngId}>
@@ -110,6 +139,25 @@ function Post({ post }: PostProps) {
             <Button onClick={assignJob} loading={loading}>
               Aplicar para trabalho
             </Button>
+          )}
+          {!hasAssistant && userCtx?.user?.Role.Name === "Ong" && (
+            <Button
+              color="bg-red-500"
+              onClick={() => setPreDelete(true)}
+              danger
+              loading={deleteLoading}
+            >
+              Apagar trabalho
+            </Button>
+          )}
+          {preDelete && (
+            <div className="predelete pt-4">
+              <p>Tem certeza que deseja deletar este post?</p>
+              <div className="btns pt-4 flex gap-4">
+                <Button onClick={() => setPreDelete(false)}>Não</Button>
+                <SecondaryButton onClick={handleDelete}>Sim</SecondaryButton>
+              </div>
+            </div>
           )}
         </main>
       </LoggedLayout>

@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { AiOutlineMail, AiFillPhone } from "react-icons/ai";
+import { FiInstagram } from "react-icons/fi";
 
 function Footer() {
   return (
@@ -24,6 +26,16 @@ function Footer() {
           <p className="flex gap-2 items-center">
             <AiFillPhone className="text-3xl rotate-90" /> (11)4002-8922
           </p>
+          <div className="social-media flex gap-4">
+            <Link
+              href="https://instagram.com/handyvolunteers"
+              target="_blank"
+              className="flex gap-1"
+            >
+              <FiInstagram size={25}></FiInstagram>
+              <span>@handyvolunteers</span>
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

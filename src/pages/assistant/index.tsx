@@ -146,6 +146,11 @@ export function BigPost({ post }: { post: Post }) {
           <span className="font-semibold text-xl">{post.Title}</span> - Postado
           em {moment(post.CreatedAt).format("DD/MM/YYYY")}
         </p>
+        <p className="py-3">
+          <Link className="underline" href={`/posts/${post.PostId}`}>
+            Clique aqui para ver o post detalhado
+          </Link>
+        </p>
         <p>
           {post.Ong?.OngName} - {formatCnpj(getNumbers(post.Ong?.Cnpj || ""))}
         </p>

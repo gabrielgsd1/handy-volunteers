@@ -59,7 +59,9 @@ function OngHomePage() {
           {finishedJobs?.length}
         </p>
       </div>
-      {posts.data && <Jobs posts={posts.data} />}
+      <div className="jobs py-8">
+        {posts.data && <Jobs posts={posts.data} />}
+      </div>
     </section>
   );
 }

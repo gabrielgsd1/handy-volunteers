@@ -57,7 +57,14 @@ function Sidebar({ isOpen, closeSidebar, openSidebar }) {
             onClick={closeSidebar}
           />
         </div>
-        <div className="w-24 h-24 m-auto mb-4 rounded-full bg-slate-600"></div>
+        <div className="w-24 h-24 m-auto mb-4 grid place-items-center rounded-full bg-slate-600">
+          <p className="text-3xl m-auto">
+            {userCtx?.user?.Name.split(" ")
+              .map((x) => x[0])
+              .join("")
+              .toUpperCase()}
+          </p>
+        </div>
         <p className="font-semibold lg:text-base text-sm">
           {userCtx?.user?.Name.split(" ").slice(0, 2).join(" ")}
         </p>

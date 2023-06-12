@@ -5,10 +5,12 @@ interface TabComponentProps {
     name: string;
     component: JSX.Element;
   }[];
+  defaultState?: number;
 }
 
-function TabComponent({ tabs }: TabComponentProps) {
-  const [currentTab, setCurrentTab] = useState(0);
+function TabComponent({ tabs, defaultState }: TabComponentProps) {
+  const [currentTab, setCurrentTab] = useState(defaultState || 0);
+  console.log(currentTab);
 
   return (
     <div className="w-full">

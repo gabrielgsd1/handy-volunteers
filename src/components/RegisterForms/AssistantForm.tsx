@@ -22,7 +22,9 @@ function AssistantForm() {
     name: z.string().min(2, "Preencha o nome corretamente"),
     email: z.string().min(1, "Preencha um e-mail").email("E-mail inválido"),
     cpf: z.string().min(1, "Preencha um CPF"),
-    phone: z.string({ required_error: "Informar o telefone é obrigatório" }),
+    phone: z
+      .string({ required_error: "Informar o telefone é obrigatório" })
+      ?.min(15, "Informe o telefone corretamente"),
     password: z.string().min(8, "A senha deve ter no mínimo 8 caracteres"),
     confirm_password: z.string(),
   });

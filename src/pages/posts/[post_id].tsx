@@ -65,8 +65,6 @@ function Post({ post }: PostProps) {
     }
   }
 
-  console.log(post.AssistantId === userCtx?.user?.Assistant?.AssistantId);
-
   return (
     <>
       <Head>
@@ -88,6 +86,15 @@ function Post({ post }: PostProps) {
               </p>
             </div>
           )}
+          {userCtx?.user?.Ong && userCtx.user.Ong.OngId === post.OngId && (
+            <div>
+              <p className="text-xl font-semibold">Dados do assistente</p>
+              <p>Nome: {post.Assistant?.Name}</p>
+              <p>Telefone: {post.Assistant?.Phone}</p>
+              <p>CPF/CNPJ: {post.Assistant?.Cnpj_Cpf}</p>
+              <p>ID: {post.Assistant?.AssistantId}</p>
+            </div>
+          )}
           {post.AssistantId === userCtx?.user?.Assistant?.AssistantId &&
             !post.FinishedAt && (
               <p className="text-yellow-400">
@@ -97,10 +104,7 @@ function Post({ post }: PostProps) {
               </p>
             )}
           <p className="py-2 text-lg">
-            ONG:{" "}
-            <Link className="hover:underline" href={"/ong/" + post.OngId}>
-              {post.Ong?.OngName}
-            </Link>
+            ONG: <p>{post.Ong?.OngName}</p>
           </p>
           <p className="py-2 text-lg">
             Tipo de trabalho: {post.Ong?.OngType.Name}

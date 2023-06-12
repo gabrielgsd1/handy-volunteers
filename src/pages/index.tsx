@@ -51,7 +51,7 @@ function TelaInicial({ children }: LayoutProps) {
             </div>
 
             <div className="flex gap-4 flex-col lg:flex-row justify-start lg:items-end mt-32 lg:mt-52 font-bold">
-              <Link href="/registro">
+              <Link href="/registro?voluntario=true">
                 <SecondaryButton className="xl:text-lg text-base font-normal shadow-md duration-200">
                   Quero ser um voluntário
                 </SecondaryButton>

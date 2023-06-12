@@ -15,9 +15,10 @@ import Head from "next/head";
 
 interface RegistroProps {
   ongTypes: OngType[];
+  defaultFormVolunteer?: boolean;
 }
 
-function Registro({ ongTypes }: RegistroProps) {
+function Registro({ ongTypes, defaultFormVolunteer }: RegistroProps) {
   const forms = [
     { name: "Sou ONG", component: <OngForm ongTypes={ongTypes} /> },
     { name: "Sou Assistente", component: <AssistantForm /> },
@@ -42,7 +43,10 @@ function Registro({ ongTypes }: RegistroProps) {
             <p className="text-xl">
               Primeiro, você é uma Ong ou deseja ser um Assistente?
             </p>
-            <TabComponent tabs={forms} />
+            <TabComponent
+              tabs={forms}
+              defaultState={defaultFormVolunteer ? 1 : undefined}
+            />
           </div>
         </main>
       </Layout>
@@ -52,12 +56,16 @@ function Registro({ ongTypes }: RegistroProps) {
 
 export default Registro;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const ongTypes = await api.get<OngType[]>("/ongtype");
+  const volunteerDefault = !!context.query.voluntario;
+
+  console.log(volunteerDefault);
 
   return {
     props: {
       ongTypes: ongTypes.data,
+      defaultFormVolunteer: volunteerDefault,
     },
   };
 };

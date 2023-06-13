@@ -33,3 +33,7 @@ NEXT_PUBLIC_API_URL="http://localhost:3001"
 O front-end se encontrará no endereço [localhost na porta 3000 (localhost:3000)](http://localhost:3000).
 
 Ah! Caso queira testar o ambiente de produção, basta clicar [neste link](https://preeminent-crepe-0fa736.netlify.app/).
+
+### Observação para o ambiente de produção
+
+Como o back-end está hospedado de graça na plataforma Render, podem haver tempos de resposta maiores do que o esperado, então, caso em alguma rota apareça o erro de "functio crash", é preciso apenas voltar e tentar a mesma rota novamente
